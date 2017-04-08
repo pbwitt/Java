@@ -1,9 +1,6 @@
-//import com.sun.glass.events.KeyEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
-import java.awt.event.KeyEvent;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 /*
@@ -14,72 +11,91 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  *
- * @author pbw5003mn 
+ * @author pbw5003
  */
 
-public class mainJFrame extends JFrame implements ActionListener
+public class MainJFrame extends JFrame implements ActionListener
 
 {   
  
-
-  JMenuItem exit, play, home;
+  JButton jb4; 
+  JMenuItem exit, play;
   JMenuItem designers, instructions;
-  JPanel DesignerJPanel, IntroJPanel, cardJPanel;
-  ControlPanel mjp;
-  mainJFrame mjf;
-  IntroJPanel intro;
-  DesignerJPanel dp1;
-  InstructionJPanel instructionp;
-  CardLayout cardLayout;
-  GamePanel gp1; 
   
-public mainJFrame ()
-    {
+  
+  
+public MainJFrame ()
+	{
 		super ("Team 07");
-                           
-                cardLayout = new CardLayout();
-
-                cardJPanel = new JPanel(cardLayout);
-                cardJPanel.setBackground(Color.cyan);
-                cardJPanel.setSize(1024,805);
-                setDefaultCloseOperation(EXIT_ON_CLOSE);
+                
+ 
+                
+  	 	ControlPanel mjp = new ControlPanel();
+                mjp.setBackground(Color.BLUE);
+                getContentPane().add(mjp,"Center");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize (640, 480);
 		setVisible(true); 
                 
-                cardJPanel.setLayout(cardLayout);
                 
-                intro = new IntroJPanel();
-                dp1 = new DesignerJPanel();
-                instructionp = new InstructionJPanel();
-                //gp1 = new GamePanel(); 
+                JButton j12 = new JButton("Welcome to PSU BattleShip!!"); 
+                add(j12, "North");
+                j12.setVisible(true);
+                j12.setFont(new Font("Arial", Font.PLAIN, 20));
                 
-                cardJPanel.add("Intro", intro);
+
+                
+                j12.setBackground(Color.BLUE); 
+                j12.setForeground(Color.white);
+                
+                ImageIcon imageLion = new ImageIcon("images/Nittany_Lion.gif");
+                Image img = imageLion.getImage();
+                Image newimg = img.getScaledInstance(300, 225,  java.awt.Image.SCALE_SMOOTH);
+                imageLion = new ImageIcon(newimg);
+            
+            
+                ImageIcon imageBattleship = new ImageIcon("images/battleship.jpg");
+                Image img1 = imageBattleship.getImage();
+                Image newimg1 = img1.getScaledInstance(350, 225,  java.awt.Image.SCALE_SMOOTH);
+                imageBattleship = new ImageIcon(newimg1);
+               
+             
+                JButton jb1 = new JButton(); 
+                add(jb1,"West");
+                jb1.setIcon(imageLion);
+                jb1.setVisible(true);
+                
+                JButton jb2 = new JButton();
+                add(jb2,"East");
+                jb2.setIcon(imageBattleship);
+                jb2.setVisible(true);
+                
+                //JButton jb3 = new JButton();
+
                 
                 
-                gp1 = new GamePanel(intro); 
+
+                //jb3.setBackground(Color.BLUE);
+
                 
-                cardJPanel.add("Designers", dp1);
-                cardJPanel.add("Instructions", instructionp);
-                cardJPanel.add("Play", gp1); 
+                //jb3.setBackground(Color.BLUE);
+         
+                //add(jb2,"Center"); 
+                //jb2.setBackground(Color.BLUE); 
                 
-                
-                
-                
+                    
                 JMenuBar menuBar = new JMenuBar();
                 JMenu menu = new JMenu("Menu");
                 JMenu credits = new JMenu("Credits");
                 menuBar.add(menu);
                 menuBar.add(credits);
-                
     
                 play = new JMenuItem("Play");
                 exit = new JMenuItem("Exit");
-                home = new JMenuItem("Home");
     
                 play.addActionListener(this);
                 exit.addActionListener(this);
-                home.addActionListener(this);
-                
-                menu.add(home);
+    
                 menu.add(play);
                 menu.add(exit);
     
@@ -92,34 +108,12 @@ public mainJFrame ()
                 
                 credits.add(designers);
                 credits.add(instructions);
-               
                 
-                designers.addActionListener(this);
-                instructions.addActionListener(this);
-                play.addActionListener(this);
-                
-                
-                KeyStroke p = KeyStroke.getKeyStroke(KeyEvent.VK_P, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
-                KeyStroke e = KeyStroke.getKeyStroke(KeyEvent.VK_E, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
-                KeyStroke h = KeyStroke.getKeyStroke(KeyEvent.VK_H, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
-                KeyStroke d = KeyStroke.getKeyStroke(KeyEvent.VK_D, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
-                KeyStroke i = KeyStroke.getKeyStroke(KeyEvent.VK_I, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
-                
-                
-                play.setAccelerator(p);
-                exit.setAccelerator(e);
-                home.setAccelerator(h);
-                designers.setAccelerator(d);
-                instructions.setAccelerator(i);
-
-                this.getContentPane().add(cardJPanel, BorderLayout.CENTER);
-                this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize (1024, 805);
-		this.setVisible(true); 
     
     }
-        
-     public void actionPerformed (ActionEvent e)
+    
+    
+    public void actionPerformed (ActionEvent e)
     {
         Object obj = e.getSource();
         
@@ -127,33 +121,12 @@ public mainJFrame ()
         {
             System.exit(0);
         }
-        
-        if(obj == designers)
-        {
-         cardLayout.show(cardJPanel, "Designers");
-         System.out.println("works");
-        } 
-        
-        if(obj == home)
-        {
-        cardLayout.show(cardJPanel, "Intro");
-        System.out.println("home works");       
-        } 
-        
-        if(obj == instructions)
-        {  
-         cardLayout.show(cardJPanel, "Instructions");
-         System.out.println("instr. works");
-        }
-        
-        if (obj == play)
-        {    
-            cardLayout.show(cardJPanel,"Play"); 
-            intro.imageTimer.stop();
-            System.out.println("Play Works");
-            
-            
-        }
     }
-     
+                
+
+	
+    
+
+    
+    
 }
